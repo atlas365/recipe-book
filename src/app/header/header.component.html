@@ -1,26 +1,37 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a href="#" class="navbar-brand">Recipe Book</a>
+			<a routerLink="/" style="cursor: pointer;" class="navbar-brand">Recipe Book</a>
 		</div>
-		<div class="navbar-default">
+		<div class="navbar-default" style="cursor: pointer;">
 			<ul class="nav navbar-nav">
-				<li>
-					<a href="#">Recipes</a>
+				<li style="cursor: pointer;" routerLinkActive="active">
+					<a routerLink="/recipes">Recipes</a>
 				</li>
-				<li>
-					<a href="#">Shopping List</a>
+				<li style="cursor: pointer;" routerLinkActive="active">
+					<a routerLink="/shopping-list">Shopping List</a>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" role="botton"> Manage <span class="caret"></span></a>
+				<ng-template [ngIf]="!authService.isAuthenticated()">
+					<li><a routerLink="/signup">Sign Up</a></li>
+					<li><a routerLink="/signin">Login</a></li>
+				</ng-template>	
+				
+				<li><a
+					style="cursor: pointer;"
+					(click)="onLogout()"
+					*ngIf="authService.isAuthenticated()">Logout</a></li>
+		  
+				
+				<li class="dropdown" appDropdown *ngIf="authService.isAuthenticated()">
+					<a class="dropdown-toggle" role="botton"> Manage <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li>
-							<a href="#">Save Data</a>
+						<li style="cursor: pointer;">
+							<a (click)="onSaveRecipes()">Save Data</a>
 						</li>
-						<li>
-							<a href="#">Fetch Data</a>
+						<li style="cursor: pointer;">
+							<a (click)="onRetrieveRecipes()">Fetch Data</a>
 						</li>
 					</ul>
 				</li>

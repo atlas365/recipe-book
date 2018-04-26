@@ -1,3 +1,41 @@
-<p>
-  recipe-detail works!
-</p>
+<div class="row">
+	<div class="col-xs-12">
+		<img [src]="recipeDetail.imagePath" class="img-responsive" style="max-height: 200px;">	
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<h1> {{ recipeDetail.name }} </h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="btn-group" appDropdown>
+			<button type="button" class="btn btn-primary dropdown-toggle"> 
+				Manage Recipe <span class="caret"></span>
+			</button>
+			<ul style="cursor: pointer;" class="dropdown-menu">
+				<li (click)="addIngredientsToShoppingList()" 
+					style="cursor: pointer;"
+					[routerLink]="['/recipes/new']"> Add Ingredients
+				</li>
+				<li style="cursor: pointer;"
+				    [routerLink]="['edit']"> Edit Recipe
+				</li>
+				<li style="cursor: pointer;" 
+					(click)="onDeleteRecipe()"> Delete Recipe
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+	<ul class="list-group">
+		<li class="list-group-item"
+			*ngFor="let ingredient of recipeDetail.ingredients">
+			{{ingredient.name}} ({{ingredient.amount}})
+		</li>
+	</ul>
+	</div>
+</div>

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { RecipeService } from '../recipes/recipe.service';
+
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +10,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+    ngOnInit() {
+    }
 
-  constructor() { }
+    constructor( private recipeService: RecipeService, private authService: AuthService ) {}
 
-  ngOnInit() {
-  }
+    onSaveRecipes(){
+      this.recipeService.updateRecipes()
+        .subscribe(
+          (response) => console.log(response)
+        );
+    }
 
+    onRetrieveRecipes(){
+      this.recipeService.retrieveRecipes();
+    }
+
+    onLogout() {
+      this.authService.logout();
+    }
 }
